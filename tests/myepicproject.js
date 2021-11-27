@@ -31,14 +31,20 @@ const main = async () => {
   console.log("👀 GIF Count", account.totalGifs.toString());
 
   // call add_gif
-  await program.rpc.addGif({
-    accounts: {
-      baseAccount: baseAccount.publicKey,
-    },
-  });
+  await program.rpc.addGif(
+    "https://media.giphy.com/media/FUi94opKPNopjUmQvR/giphy.gif",
+    {
+      accounts: {
+        baseAccount: baseAccount.publicKey,
+        user: provider.wallet.publicKey,
+      },
+    }
+  );
 
   account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log("👀 GIF Count ", account.totalGifs.toString());
+
+  console.log("👀 GIF Count ", account.gifList);
 };
 
 const runMain = async () => {
